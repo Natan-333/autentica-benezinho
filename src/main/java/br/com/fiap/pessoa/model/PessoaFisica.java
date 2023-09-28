@@ -1,9 +1,18 @@
 package br.com.fiap.pessoa.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+@Entity
+@Table(name = "TB_NR", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_NR_CPF", columnNames = "NR_CPF")
+})
 
 public class PessoaFisica extends Pessoa {
     private String CPF;
@@ -29,6 +38,8 @@ public class PessoaFisica extends Pessoa {
      * @param filho
      * @return PessoaFisica
      */
+
+    @ManyToMany
     public PessoaFisica addFilho(PessoaFisica filho) {
         if (filho.equals(this)) throw new RuntimeException("Eu não posso ser ao mesmo tempo pai e filho");
         //Adiciono um filho meu

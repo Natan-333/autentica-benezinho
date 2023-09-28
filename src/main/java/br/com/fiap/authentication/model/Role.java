@@ -1,10 +1,15 @@
 package br.com.fiap.authentication.model;
 
 import br.com.fiap.sistema.model.Sistema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 /**
  * É uma permissão de um sistema em específico
  */
+@Entity
+
+
 public class Role {
     private Long id;
     private String nome;
@@ -48,7 +53,7 @@ public class Role {
         this.descricao = descricao;
         return this;
     }
-
+@ManyToOne
     public Sistema getSistema() {
         return sistema;
     }

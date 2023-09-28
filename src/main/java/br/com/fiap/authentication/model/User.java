@@ -1,6 +1,7 @@
 package br.com.fiap.authentication.model;
 
 import br.com.fiap.pessoa.model.Pessoa;
+import jakarta.persistence.*;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -9,6 +10,11 @@ import java.util.Set;
 /**
  * É o usuário de uma determinada pessoa nos sistemas da empresa
  */
+@Entity
+@Table(name = "TB_END", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_END_EMAIL", columnNames = "WORD_EMAIL")
+})
+
 public class User {
     private Long id;
 
@@ -41,6 +47,7 @@ public class User {
         return this;
     }
 
+    @ManyToMany
     public Set<Profile> getProfiles() {
         return Collections.unmodifiableSet(profiles);
     }
@@ -76,6 +83,7 @@ public class User {
         return pessoa;
     }
 
+    @ManyToOne
     public User setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
         return this;

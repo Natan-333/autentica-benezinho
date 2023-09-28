@@ -7,7 +7,10 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
+@Entity
+@Table(name = "TB_NUM", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_NUM_CNPJ", columnNames = "NUM_CNPJ")
+})
 public class PessoaJuridica extends Pessoa {
     private String CNPJ;
     private Set<Pessoa> socios = new LinkedHashSet<>();
@@ -19,6 +22,7 @@ public class PessoaJuridica extends Pessoa {
         return this;
     }
 
+    @ManyToMany
     public Set<Pessoa> getSocios() {
         return Collections.unmodifiableSet(socios);
     }

@@ -1,5 +1,8 @@
 package br.com.fiap.authentication.model;
 
+
+import jakarta.persistence.*;
+
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -8,7 +11,14 @@ import java.util.Set;
  * Mapeia um conjunto de permissões que uma pessoa
  * pode ter nos diversos sistemas da empresa
  */
+@Entity
+@Table(name = "TB_COD", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_COD_ID", columnNames = "NR_ID")
+    })
 public class Profile {
+@Id
+
+@Column(name = "NR_ID", nullable = false)
     private Long id;
     private String nome;
     private Set<Role> roles = new LinkedHashSet<>();
@@ -22,6 +32,7 @@ public class Profile {
         this.roles = roles;
     }
 
+    @ManyToMany
     public Profile addRole(Role role) {
         this.roles.add(role);
         return this;

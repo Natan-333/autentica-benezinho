@@ -1,17 +1,25 @@
 package br.com.fiap.pessoa.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "pessoa")
 public abstract class Pessoa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pessoa")
     protected Long id;
 
-
+    @Column(name = "nome_pessoa")
     protected String nome;
 
-
+    @Column(name = "data_nascimento")
     protected LocalDate nascimento;
 
     public Pessoa() {
